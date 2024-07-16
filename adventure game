@@ -1,0 +1,63 @@
+import random
+import time
+
+# دالة لطباعة المعلومات مع وقفة
+def print_pause(message):
+  print(message)
+  time.sleep(2)
+
+# دالة لإنشاء رقم عشوائي
+def generate_random_number():
+  return random.randint(1, 10)
+
+# دالة لبدء اللعبة
+def start_game():
+  # إنشاء المتغيرات
+  player_name = input("ما هو اسمك؟ ")
+  player_health = 100
+  score = 0
+  turns_remaining = 5
+
+  # عرض معلومات اللعبة
+  print_pause(f"مرحبًا {player_name}! أنت في مغامرة مثيرة!")
+  print_pause("ستواجه تحديات في كل جولة، وعليك اتخاذ قرارات حاسمة.")
+  print_pause(f"لديك {turns_remaining} جولات، وكل جولة ستمنحك نقاطًا.")
+  print_pause(f"احرص على البقاء على قيد الحياة وجمع أكبر عدد من النقاط للفوز!")
+
+  # بدء اللعبة
+  while turns_remaining > 0:
+    # عرض معلومات الجولة
+    print_pause(f"**الجولة {turns_remaining}**")
+    print_pause(f"صحتك الحالية: {player_health}")
+    print_pause(f"نقاطك: {score}")
+
+    # إنشاء حدث عشوائي
+    random_number = generate_random_number()
+    if random_number <= 5:
+      # حدث إيجابي
+      print_pause("لقد وجدت كنزًا! زادت صحتك بـ 20 نقطة!")
+      player_health += 20
+      score += 10
+    else:
+      # حدث سلبي
+      print_pause("واجهت وحشًا! فقدت 15 نقطة من صحتك.")
+      player_health -= 15
+
+    # التحقق من حالة اللعبة
+    if player_health <= 0:
+      print_pause("لقد خسرت! حاول مرة أخرى لاحقًا.")
+      break
+    elif turns_remaining == 1:
+      print_pause(f"لقد وصلت إلى نهاية اللعبة! نتيجتك النهائية: {score}")
+    else:
+      turns_remaining -= 1
+
+  # عرض خيارات نهاية اللعبة
+  play_again = input("هل تريد اللعب مرة أخرى؟ (نعم / لا): ").lower()
+  if play_again == "نعم":
+    start_game()
+  else:
+    print_pause("شكرًا على اللعب!")
+
+# تشغيل اللعبة
+start_game()
